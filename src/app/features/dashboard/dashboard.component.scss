@@ -1,0 +1,30 @@
+:host { display: block; }
+
+
+.app-toolbar { position: sticky; top: 0; z-index: 10; }
+.mat-toolbar { padding-inline: 1rem; }
+.brand { font-weight: 600; margin-left: .25rem; }
+.spacer { flex: 1 1 auto; }
+
+
+.container {
+min-height: calc(100dvh - 64px);
+display: grid;
+place-content: center;
+justify-items: center;
+gap: 1rem;
+padding: 1rem;
+}
+
+
+.title { margin: 0; font-size: 2rem; text-align: center; }
+
+
+.buttons {
+display: grid;
+gap: .9rem;
+width: min(260px, 90vw);
+}
+
+
+.btn { height: 40px; }

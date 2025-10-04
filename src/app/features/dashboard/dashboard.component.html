@@ -1,0 +1,16 @@
+
+<app-header></app-header>
+<main class="container" role="main">
+<h1 class="title">Select Your Role</h1>
+<div class="buttons">
+    <button mat-raised-button color="primary" (click)="openLoginDialog('admin')" class="btn">
+      Admin
+    </button>
+    <button mat-raised-button color="primary" (click)="openLoginDialog('doctor')" class="btn">
+      Doctor
+    </button>
+    <button mat-raised-button color="primary" routerLink="/patient" class="btn">
+      Patient
+    </button>
+</div>
+</main>

@@ -1,0 +1,26 @@
+<section class="grid lg:grid-cols-4 xl:grid-cols-5 gap-2 md:grid-cols-2 sm:grid-cols-1">
+@if (doctors().length > 0) {
+@for (doctor of doctors(); track doctor.id) {
+<mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+        <mat-card-title>{{doctor.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            {{doctor.specialty}}
+        </p>
+        <p>
+            {{doctor.email}}
+        </p>
+        <p>
+            Available:
+            {{doctor.availableTimes}}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+    <button matButton="filled" (click)="onDelete(doctor.id)">Delete</button>
+    </mat-card-actions>
+</mat-card>
+}
+}
+</section>

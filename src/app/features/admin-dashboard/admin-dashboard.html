@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<form class="flex gap-3">
+    <div class="flex flex-col">
+    <mat-label>Search by doctor name</mat-label>
+    <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Enter doctor name" (keyup)="onNameChanged($event)"></textarea>
+    </mat-form-field>
+    </div>
+    <div>
+    <h4>Sort by time</h4>
+    <mat-form-field>
+        <mat-label>Time</mat-label>
+        <select (change)="onTimeChanged($event)" matNativeControl required>
+            <option value="am">AM</option>
+            <option value="pm">PM</option>
+        </select>
+    </mat-form-field>
+</div>
+<div>
+    <h4>Filter by specialty</h4>
+    <mat-form-field>
+        <mat-label>Specialty</mat-label>
+        <select (change)="onSpecialtyChanged($event)" matNativeControl required>
+            <option value="getAll">Filter by specialty</option>
+            <option value="cardiologist">Cardiologist</option>
+            <option value="dermatologist">Dermatologist</option>
+            <option value="orthopedist">Orthopedist</option>
+            <option value="neurologist">Neurologist</option>
+            <option value="pediatrician">Pediatrician</option>
+        </select>
+    </mat-form-field>
+</div>
+</form>
+
+<app-doctors-list [doctors]="data()" (deleteDoctor)="onDeleteDoctor($event)"></app-doctors-list>

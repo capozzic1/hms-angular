@@ -1,0 +1,45 @@
+<mat-dialog-content>
+
+    <h2>Add Doctor</h2>
+    <form [formGroup]="doctorForm" (ngSubmit)="onSave()">
+    <mat-form-field  class="full-width">
+            <mat-label>Doctor Name</mat-label>
+            <input matInput formControlName="name" required>
+        </mat-form-field>
+
+    <mat-form-field class="full-width">
+            <mat-label>Select Specialization</mat-label>
+            <select matNativeControl formControlName="specialization" required>
+                <option value="" disabled selected>Select a specialization</option>
+                @for (specialization of specializations; track specialization) {
+                <option [value]="specialization">{{ specialization }}</option>
+                }
+            </select>
+        </mat-form-field>
+
+    <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required type="email">
+        </mat-form-field>
+
+    <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" required type="password">
+        </mat-form-field>
+
+    <mat-form-field class="full-width">
+            <mat-label>Mobile No.</mat-label>
+            <input matInput formControlName="mobile" required>
+        </mat-form-field>
+
+        <section class="example-section" formGroupName="availabilities">
+            <h4>Select your availabilities:</h4>
+            <p *ngFor="let slot of availabilities">
+                <mat-checkbox [formControlName]="slot.value">{{ slot.key }}</mat-checkbox>
+            </p>
+        </section>
+    <button mat-raised-button color="primary" type="submit" class="full-width save-btn">Save</button>
+        <button mat-button type="button" (click)="close()">Cancel</button>
+
+    </form>
+</mat-dialog-content>
