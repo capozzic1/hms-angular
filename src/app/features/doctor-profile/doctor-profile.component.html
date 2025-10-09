@@ -1,0 +1,46 @@
+@let prof = profile();
+
+<div class="profile-container container mx-auto">
+    <div class="profile-section">
+        <h1 class="text-3xl">Profile</h1>
+        @if (prof) {
+        <div><b>Id:</b> {{prof.id}}</div>
+        <div><b>Email:</b> {{prof.email}}</div>
+        <div><b>Phone:</b> {{prof.phone}}</div>
+        <div><b>Name:</b> {{prof.name}}</div>
+        <div><b>Specialty:</b> {{prof.specialty}}</div>
+        <div><b>Available Times</b></div>
+        }
+        <ul>
+            @for (t of prof.availableTimes; track t) {
+            <li>{{t.replace('-', '–')}}</li>
+            }
+        </ul>
+    </div>
+    <div class="update-section">
+        <h1 class="text-3xl">Update Profile</h1>
+        <form [formGroup]="form" (ngSubmit)="onUpdate()">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="email" placeholder="Email">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput formControlName="phone" placeholder="Phone">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput formControlName="name" placeholder="Name">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput formControlName="specialty" placeholder="Specialty">
+            </mat-form-field>
+            <div class="mt-4 mb-2 font-semibold">Available Times</div>
+            <div class="checkbox-list">
+                @for (t of ALL_AVAILABLE_TIMES; track t) {
+                <mat-checkbox [formControl]="getAvailableTimeControlByKey(t)">
+                    {{ formatTimeRange(t) }}
+                </mat-checkbox>
+                }
+            </div>
+            <button mat-raised-button color="primary" class="update-btn" type="submit">Update</button>
+        </form>
+    </div>
+</div>

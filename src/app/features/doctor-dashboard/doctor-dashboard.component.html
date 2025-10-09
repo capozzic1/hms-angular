@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<div class="p-4 bg-gray-50 min-h-screen">
+  <mat-form-field class="w-full mb-4">
+    <input matInput placeholder="Search Bar for custom output" (input)="onDoctorNameInput($event)">
+  </mat-form-field>
+
+  <div class="flex items-center gap-4 mb-4">
+  <button mat-raised-button color="primary" class="bg-teal-700 text-white" (click)="onTodaysAppointments()">Today's Appointments</button>
+    <mat-form-field appearance="outline" class="w-auto">
+  <input matInput [matDatepicker]="picker" [value]="selectedDate" (dateChange)="onDateChange($event.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table mat-table [dataSource]="dataSource()" class="min-w-full bg-white rounded">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-500">Patient ID</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-500">Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-500">Phone No.</th>
+        <td mat-cell *matCellDef="let element">{{element.phone}}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-500">Email</th>
+        <td mat-cell *matCellDef="let element">{{element.email}}</td>
+      </ng-container>
+      <ng-container matColumnDef="prescription">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-gray-500">Prescription</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="bg-teal-700 text-white" (click)="openPrescriptionDialog(element.appointmentId)"><mat-icon>medication</mat-icon></button>
+        </td>
+      </ng-container>
+      <thead>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      </thead>
+      <tbody>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        @if (dataSource.length === 0) {
+          <tr>
+            <td [attr.colspan]="displayedColumns.length" class="text-center py-4">No Appointments found for today.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

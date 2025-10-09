@@ -1,0 +1,41 @@
+.profile-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+.profile-section, .update-section {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  min-width: 350px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+.profile-section {
+  margin-right: 2rem;
+}
+.update-section {
+  flex: 1;
+}
+.w-full {
+  width: 100%;
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}
+.mb-2 {
+  margin-bottom: 0.75rem;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.update-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+}
