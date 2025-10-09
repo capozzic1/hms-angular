@@ -27,3 +27,5 @@ src/
  ├── assets/                  # Static files (images, JSON, fonts)
  ├── environments/            # environment.ts, environment.prod.ts
  └── styles/                  # Global styles, theming
+
+![alt text](image.png)
