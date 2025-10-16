@@ -1,7 +1,13 @@
 
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  {
+    path: 'patientAppointments',
+    loadComponent: () =>
+      import('./features/patient-appointments/patient-appointments.component').then(m => m.PatientAppointmentsComponent)
+  },
   {
     path: 'profile',
     loadComponent: () =>
@@ -21,6 +27,11 @@ export const routes: Routes = [
     path: 'doctorDashboard',
     loadComponent: () =>
       import('./features/doctor-dashboard/doctor-dashboard.component').then(m => m.DoctorDashboardComponent)
+  },
+  {
+    path: 'patientDashboard',
+    loadComponent: () =>
+      import('./features/patient-dashboard/patient-dashboard.component').then(m => m.PatientDashboardComponent)
   },
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '**', redirectTo: 'dashboard' }

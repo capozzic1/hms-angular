@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="appointments-container">
+  <div class="appointments-controls">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput [formControl]="searchControl" placeholder="Search by doctor, patient, or date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <mat-select [formControl]="filterControl">
+        <mat-option *ngFor="let opt of filterOptions" [value]="opt.value">{{ opt.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <table mat-table [dataSource]="filteredAppointments()" class="mat-elevation-z8 appointments-table">
+    <ng-container matColumnDef="patientName">
+      <th mat-header-cell *matHeaderCellDef>Patient Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.patientName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="doctorName">
+      <th mat-header-cell *matHeaderCellDef>Doctor Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.doctorName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="appointmentDate">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.appointmentDate }}</td>
+    </ng-container>
+    <ng-container matColumnDef="appointmentTimeOnly">
+      <th mat-header-cell *matHeaderCellDef>Time</th>
+      <td mat-cell *matCellDef="let row">{{ row.appointmentTimeOnly }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        @if (row.status === 0) {
+        <button mat-icon-button color="primary" (click)="onEditAppointment(row)"><mat-icon>event</mat-icon></button>
+        } @else {
+        <button mat-icon-button color="primary" disabled>-</button>
+
+        }
+      </td>
+    </ng-container>
+    <tr mat-header-row
+      *matHeaderRowDef="['patientName', 'doctorName', 'appointmentDate', 'appointmentTimeOnly', 'actions']"></tr>
+    <tr mat-row
+      *matRowDef="let row; columns: ['patientName', 'doctorName', 'appointmentDate', 'appointmentTimeOnly', 'actions'];">
+    </tr>
+  </table>
+</div>

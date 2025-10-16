@@ -1,3 +1,4 @@
+
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,6 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppointmentsService {
+  updateAppointment(token: string, body: any) {
+    return this.http.put(`${this.baseUrl}/${token}`, body);
+  }
+  
+  createAppointment(token: string, body: any) {
+    return this.http.post(`${this.baseUrl}/${token}`, body);
+  }
   private http = inject(HttpClient);
   private baseUrl = 'http://localhost:8080/appointments';
 

@@ -1,0 +1,35 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.dashboard-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+}
+.doctor-card {
+  width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+mat-card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+mat-card-content div {
+  margin-bottom: 0.5rem;
+}
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
