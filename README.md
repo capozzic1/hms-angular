@@ -1,10 +1,4 @@
-src/
- ├── app/
- │    ├── core/               # Singleton services & app-wide utilities
- │    │    ├── interceptors/
- │    │    ├── guards/
- │    │    ├── services/
- │    │    └── core.module.ts
+
 # hms-angular
 
 Hospital Management System — Angular + Angular Universal (SSR) front-end.
