@@ -8,6 +8,7 @@ export class AuthGuard implements CanActivate {
   private router = inject(Router);
 
   canActivate(route?: ActivatedRouteSnapshot): boolean | UrlTree {
+    debugger;
     const token = this.auth.getToken();
     if (!token) {
       return this.router.parseUrl('/');
