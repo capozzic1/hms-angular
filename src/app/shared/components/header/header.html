@@ -1,13 +1,33 @@
 <header class="flex items-center" role="banner">
-<mat-toolbar color="primary" class="mat-elevation-z2">
-<button mat-icon-button aria-label="Hospital icon" class="logo">
-<mat-icon>local_hospital</mat-icon>
-</button>
-<span class="brand">Hospital CMS</span>
-<span class="spacer"></span>
-</mat-toolbar>
-<div class="w-40">
-    <button matButton="filled" (click)="openAddDoctorDialog()">Add Doctor</button>
-</div>
+    <mat-toolbar color="primary" class="mat-elevation-z2">
+        <button mat-icon-button aria-label="Hospital icon" class="logo">
+            <mat-icon>local_hospital</mat-icon>
+        </button>
+        <span class="brand">Hospital CMS</span>
+        <span class="spacer"></span>
+    </mat-toolbar>
+    <div class="w-40">
+        @if(auth.userRole() === 'admin') { <button matButton="filled" (click)="openAddDoctorDialog()">Add
+            Doctor</button> }
 
+    </div>
+    <div class="w-40">
+        @if(auth.isDoctor()) { <button matButton="filled" (click)="goToProfile()">Profile</button> }
+
+    </div>
+
+    <div class="w-40 flex">
+        @if(auth.userRole() === 'patient' && auth.isLoggedIn()) {
+        <button mat-button (click)="goToHome()">Home</button>
+        <button mat-button (click)="goToAppointments()">Appointments</button>
+
+        }
+    </div>
+    @if(!auth.isLoggedIn() && isPatientRoute()) {
+        <button mat-button (click)="openPatientLogin()">Login</button>
+        <button mat-button (click)="openPatientSignup()">Signup</button> }
+
+    <div class="w-40">
+        @if(auth.isLoggedIn()) { <button mat-button (click)="logout()">Logout</button> }
+    </div>
 </header>

@@ -1,0 +1,32 @@
+<h2 class="title">Patient Signup</h2>
+<form class="signup-form" (ngSubmit)="submit()" [formGroup]="form">
+  <mat-form-field class="full">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="full">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field class="full">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+  </mat-form-field>
+
+  <mat-form-field class="full">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" />
+  </mat-form-field>
+
+  <mat-form-field class="full">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Signup</button>
+  </div>
+</form>

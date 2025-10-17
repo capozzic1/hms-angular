@@ -1,0 +1,3 @@
+.title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.body { margin-bottom: 1rem; }
+.actions { display:flex; justify-content:flex-end; }

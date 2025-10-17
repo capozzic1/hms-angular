@@ -9,6 +9,8 @@ import { DoctorService } from '../../core/services/doctor-service/doctor-service
 import { PatientService } from '../../core/services/patient-service/patient-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BookAppointmentDialogComponent } from '../book-appointment-dialog/book-appointment-dialog.component';
+import { LoginRequiredDialogComponent } from '../login-required-dialog/login-required-dialog.component';
+import { AuthService } from '../../core/services/auth-service/auth-service';
 import { Header } from '../../shared/components/header/header';
 
 
@@ -32,7 +34,7 @@ import { Header } from '../../shared/components/header/header';
 export class PatientDashboardComponent implements OnInit {
     patient = signal<any | null>(null);
     private patientService = inject(PatientService);
-    
+    private auth = inject(AuthService);
     private dialog = inject(MatDialog);
     doctors = signal<any[]>([]);
     searchControl = new FormControl('');
@@ -121,6 +123,11 @@ export class PatientDashboardComponent implements OnInit {
     }
 
     openBookDialog(doc: any) {
+        if (!this.auth.isLoggedIn()) {
+            this.dialog.open(LoginRequiredDialogComponent, { width: '320px' });
+            return;
+        }
+
         const dialogRef = this.dialog.open(BookAppointmentDialogComponent, {
             data: {
             patientName: this.patient()?.name || '',

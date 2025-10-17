@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../auth/login/login-dialog.component';
 import { Header } from '../../shared/components/header/header';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class DashboardComponent {
   ];
 
     private dialog = inject(MatDialog);
+    private router = inject(Router);
 
   openLoginDialog(role: 'admin' | 'doctor') {
     const ref = this.dialog.open(LoginDialogComponent, {
@@ -39,5 +41,9 @@ export class DashboardComponent {
         // navigate or call AuthService.login() here
       }
     });
+  }
+
+  goToPatientDashboard() {
+    this.router.navigate(['/patientDashboard']);
   }
 }

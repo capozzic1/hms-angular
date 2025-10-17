@@ -27,4 +27,9 @@ export class PatientService {
       headers: { Authorization: token }
     });
   }
+
+  // Create a new patient (signup)
+  createPatient(payload: { name: string; email: string; password: string; phone?: string; address?: string; }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}`, payload);
+  }
 }

@@ -1,6 +1,7 @@
 
 
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -21,12 +22,16 @@ export const routes: Routes = [
   {
     path: 'adminDashboard',
     loadComponent: () =>
-      import('./features/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard)
+      import('./features/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard),
+    canActivate: [AuthGuard]
   },
   {
     path: 'doctorDashboard',
     loadComponent: () =>
       import('./features/doctor-dashboard/doctor-dashboard.component').then(m => m.DoctorDashboardComponent)
+    ,
+    canActivate: [AuthGuard],
+    data: { roles: ['doctor'] }
   },
   {
     path: 'patientDashboard',
