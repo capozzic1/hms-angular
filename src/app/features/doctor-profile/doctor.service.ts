@@ -1,18 +1,21 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DoctorService {
   private http = inject(HttpClient);
+  private readonly apiBase = environment.apiBase;
 
   getProfile(token: string): Observable<any> {
     const headers = new HttpHeaders({ Authorization: token });
-    return this.http.get<any>('http://localhost:8080/doctor/profile', { headers });
+    return this.http.get<any>(`${this.apiBase}/doctor/profile`, { headers });
   }
 
   updateProfile(payload: any): Observable<any> {
-    const url = 'http://localhost:8080/doctor/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkci5qb2huc29uQGV4YW1wbGUuY29tIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MDA0NDcwMSwiZXhwIjoxNzYwNjQ5NTAxfQ.18-0fdYM2E5Y6bFWzhh8fva2MJbr2u8NonRlUXMCCyc';
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') || '' : '';
+    const url = `${this.apiBase}/doctor/${token}`;
     return this.http.put(url, payload);
   }
 }

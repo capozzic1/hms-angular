@@ -2,13 +2,16 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080';
+ 
+  private readonly apiBase = environment.apiBase;
+
   // signal to represent login state for template bindings
   isLoggedIn = signal<boolean>(typeof window !== 'undefined' && !!localStorage.getItem('token'));
   // signal to hold the user's role (extracted from JWT)
@@ -32,7 +35,7 @@ export class AuthService {
   // POST { username, password } to /admin/login, store token in localStorage
   loginAdmin(username: string, password: string): Observable<any> {
     const body = { username, password };
-    return this.http.post<{ token?: string; accessToken?: string }>(`${this.baseUrl}/admin/login`, body)
+    return this.http.post<{ token?: string; accessToken?: string }>(`${this.apiBase}/admin/login`, body)
       .pipe(
         tap(res => {
           const token = res?.token ?? res?.accessToken;
@@ -49,7 +52,7 @@ export class AuthService {
   // POST { email, password } to /doctor/login, store token in localStorage
   loginDoctor(email: string, password: string): Observable<any> {
     const body = { email, password };
-    return this.http.post<{ token?: string; accessToken?: string }>(`${this.baseUrl}/doctor/login`, body)
+    return this.http.post<{ token?: string; accessToken?: string }>(`${this.apiBase}/doctor/login`, body)
       .pipe(
         tap(res => {
           const token = res?.token ?? res?.accessToken;
@@ -66,7 +69,7 @@ export class AuthService {
   // POST { email, password } to /patient/login, store token in localStorage
   loginPatient(email: string, password: string): Observable<any> {
     const body = { email, password };
-    return this.http.post<{ token?: string; accessToken?: string }>(`${this.baseUrl}/patient/login`, body)
+    return this.http.post<{ token?: string; accessToken?: string }>(`${this.apiBase}/patient/login`, body)
       .pipe(
         tap(res => {
           const token = res?.token ?? res?.accessToken;

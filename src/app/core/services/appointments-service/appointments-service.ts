@@ -1,21 +1,24 @@
 
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentsService {
+
+  private http = inject(HttpClient);
+  private readonly apiBase = environment.apiBase;
+ 
+  
   updateAppointment(token: string, body: any) {
-    return this.http.put(`${this.baseUrl}/${token}`, body);
+    return this.http.put(`${this.apiBase}/appointments/${token}`, body);
   }
   
   createAppointment(token: string, body: any) {
-    return this.http.post(`${this.baseUrl}/${token}`, body);
+    return this.http.post(`${this.apiBase}/appointments/${token}`, body);
   }
-  private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/appointments';
-
   getAppointments(date: string, doctorName: string): any {
     const token = localStorage.getItem('token');
 
@@ -24,6 +27,6 @@ export class AppointmentsService {
     }
     // doctorName param is not used in the sample URL, but you can append as needed
     // Example: `${this.baseUrl}/${date}/${doctorName}/${token}`
-    return this.http.get(`${this.baseUrl}/${date}/${doctorName}/${token}`);
+    return this.http.get(`${this.apiBase}/appointments/${date}/${doctorName}/${token}`);
   }
 }

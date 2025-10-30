@@ -6,6 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -23,7 +24,6 @@ const angularApp = new AngularNodeAppEngine();
  * });
  * ```
  */
-
 /**
  * Serve static files from /browser
  */
@@ -34,7 +34,7 @@ app.use(
     redirect: false,
   }),
 );
-
+app.get('/healthz', (_, res) => res.status(200).send('OK good health'));
 /**
  * Handle all other requests by rendering the Angular application.
  */
