@@ -18,6 +18,8 @@ This repository contains a server-side-rendered Angular application using Angula
 - npm
 - Angular CLI (if running local builds): `npm i -g @angular/cli`
 
+## Deployment 
+Deployed to AWS utilizing ECS, ALB(application load balancer), and ECR. 
 ## Quick start (development client)
 1. Install dependencies
 
