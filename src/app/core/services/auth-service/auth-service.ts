@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class AuthService {
   private http = inject(HttpClient);
- 
+
   private readonly apiBase = environment.apiBase;
 
   // signal to represent login state for template bindings

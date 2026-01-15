@@ -21,6 +21,7 @@ export class Header {
   private dialog = inject(MatDialog);
   public auth = inject(AuthService) as AuthService;
   private router = inject(Router) as Router;
+
   public openAddDoctorDialog() {
     this.dialog.open(DoctorAddDialogComponent, {
       width: '400px'

@@ -12,6 +12,7 @@ import { BookAppointmentDialogComponent } from '../book-appointment-dialog/book-
 import { LoginRequiredDialogComponent } from '../login-required-dialog/login-required-dialog.component';
 import { AuthService } from '../../core/services/auth-service/auth-service';
 import { Header } from '../../shared/components/header/header';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -19,8 +20,8 @@ import { Header } from '../../shared/components/header/header';
     standalone: true,
     imports: [
         CommonModule,
-    MatInputModule,
-    MatDialogModule,
+        MatInputModule,
+        MatDialogModule,
         MatSelectModule,
         MatCardModule,
         MatButtonModule,
@@ -56,10 +57,10 @@ export class PatientDashboardComponent implements OnInit {
         'Gastroenterologist',
         'General Physician'
     ];
-        times: string[] = [
-            'AM',
-            'PM'
-        ];
+    times: string[] = [
+        'AM',
+        'PM'
+    ];
     form!: FormGroup;
     private fb = inject(FormBuilder);
     private doctorService = inject(DoctorService);
@@ -116,27 +117,30 @@ export class PatientDashboardComponent implements OnInit {
         });
 
         // Load patient info for prefilling bookings
-        this.patientService.getPatientInfo().subscribe(info => {
-            const p = info?.patient || null;
-            this.patient.set(p);
-        });
+        //not working
+
     }
 
-    openBookDialog(doc: any) {
+    async openBookDialog(doc: any) {
         if (!this.auth.isLoggedIn()) {
-            this.dialog.open(LoginRequiredDialogComponent, { width: '320px' });
+            const loginRef = this.dialog.open(LoginRequiredDialogComponent, { width: '320px' });
             return;
+        } 
+        try {
+            const info: any = await firstValueFrom(this.patientService.getPatientInfo());
+            this.patient.set(info?.patient || null);
+        } catch (err) {
+            console.error('Failed to load patient info', err);
         }
-
         const dialogRef = this.dialog.open(BookAppointmentDialogComponent, {
             data: {
-            patientName: this.patient()?.name || '',
-            patientId: this.patient()?.id || null,
-            doctorName: doc.name,
-            doctorId: doc.id,
-            specialty: doc.specialty,
-            email: doc.email,
-            doctorData: doc
+                patientName: this.patient()?.name || '',
+                patientId: this.patient()?.id || null,
+                doctorName: doc.name,
+                doctorId: doc.id,
+                specialty: doc.specialty,
+                email: doc.email,
+                doctorData: doc
             },
             width: '600px'
         });

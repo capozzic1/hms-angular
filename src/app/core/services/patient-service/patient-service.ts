@@ -2,12 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../auth-service/auth-service';
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
   private http = inject(HttpClient);
   private readonly apiBase = environment.apiBase;
-
+  private auth = inject(AuthService);
 
   getAppointmentsByPastOrFuture(type: 'past' | 'future' | 'null', token: string): Observable<any> {
     // type should be 'past' or 'future'
@@ -16,7 +17,8 @@ export class PatientService {
 
   // Calls /patient to get patient info (including id), with Authorization header
   getPatientInfo(): Observable<any> {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') || '' : '';
+    const token = this.auth.getToken() || '';
+    // const token = typeof window !== 'undefined' ? localStorage.getItem('token') || '' : '';
     return this.http.get<any>(`${this.apiBase}/patient`, {
       headers: { Authorization: token }
     });

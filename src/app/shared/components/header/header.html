@@ -7,8 +7,10 @@
         <span class="spacer"></span>
     </mat-toolbar>
     <div class="w-40">
-        @if(auth.userRole() === 'admin') { <button matButton="filled" (click)="openAddDoctorDialog()">Add
-            Doctor</button> }
+        @if(auth.userRole() === 'admin' && auth.isLoggedIn()) {
+            
+             <button matButton="filled" (click)="openAddDoctorDialog()">Add Doctor</button>
+         }
 
     </div>
     <div class="w-40">

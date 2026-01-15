@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import {  MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { AppointmentsService } from '../../core/services/appointments-service/appointments-service';
+import { AuthService } from '../../core/services/auth-service/auth-service';
 
 @Component({
   selector: 'app-book-appointment-dialog',
@@ -42,6 +43,7 @@ export class BookAppointmentDialogComponent {
     '16:00-17:00'
   ];
     appointmentsService = inject(AppointmentsService);
+    auth = inject(AuthService);
 
   constructor(
     private dialogRef: MatDialogRef<BookAppointmentDialogComponent>,
@@ -75,8 +77,8 @@ export class BookAppointmentDialogComponent {
       };
 
       // use provided token for testing (replace with localStorage token in production)
-      const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJwYXRpZW50IiwiaWF0IjoxNzYwNjI3NDAxLCJleHAiOjE3NjEyMzIyMDF9.zsM0-YsL0XEaFF53ekfYoq0CH1fTjiembQ-GIF0X4Mw';
-
+      const token = this.auth.getToken();
+      
       this.appointmentsService.createAppointment(token, body).subscribe({
         next: (res) => {
           this.dialogRef.close(res);

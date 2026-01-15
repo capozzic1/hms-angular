@@ -16,7 +16,7 @@ export class AppointmentsService {
     return this.http.put(`${this.apiBase}/appointments/${token}`, body);
   }
   
-  createAppointment(token: string, body: any) {
+  createAppointment(token: string | null, body: any) {
     return this.http.post(`${this.apiBase}/appointments/${token}`, body);
   }
   getAppointments(date: string, doctorName: string): any {
